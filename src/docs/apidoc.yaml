@@ -1,0 +1,45 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Spring RET Bootstrap Services
+  description: his is a stub for starting Spring REST services. It includes basic Boot configuration, Docker, and a About service that reads this YAML file. It also uses profiles
+  version: "0.0.1"
+# the domain of the service
+host: localhost
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /about:
+    get:
+      summary: Describes the api and provide contact information
+      description: |
+        This endpoint simply retrieves documentation information and provide contact information.
+
+      responses:
+        200:
+          description: An page with basic information.
+          schema:
+            type: string
+
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+definitions:
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
