@@ -2,6 +2,8 @@ package edu.msc.opennlp;
 
 import opennlp.tools.namefind.NameFinderME;
 import opennlp.tools.namefind.TokenNameFinderModel;
+import opennlp.tools.postag.POSModel;
+import opennlp.tools.postag.POSTaggerME;
 import opennlp.tools.sentdetect.SentenceDetectorME;
 import opennlp.tools.sentdetect.SentenceModel;
 import opennlp.tools.tokenize.Tokenizer;
@@ -86,6 +88,7 @@ public class BasicTests {
 
     @Test
     public void testNameEntityRecognizer() throws FileNotFoundException {
+        long startTime = System.currentTimeMillis();
         InputStream modelIn = new FileInputStream("src/test/resources/en-ner-person.bin");
         InputStream sentencemodelIn = new FileInputStream("src/test/resources/en-sent.bin");
         InputStream tokenmodelIn = new FileInputStream("src/test/resources/en-token.bin");
@@ -106,10 +109,9 @@ public class BasicTests {
                 Span nameSpans[] = nameFinder.find(tokens);
                 if (nameSpans != null && nameSpans.length > 0) {
                     for (Span sp : nameSpans) {
-                        int idx = sp.getStart();
                         System.out.print("name: ");
-                        for (idx = sp.getStart(); idx < sp.getEnd(); idx++) {
-                            System.out.print(tokens[idx] + " ");
+                        for (int idx = sp.getStart(); idx < sp.getEnd(); idx++) {
+                            System.out.print(tokens[idx] + ", ");
                         }
                         System.out.println();
                     }
@@ -118,6 +120,56 @@ public class BasicTests {
                 }
                 // do something with the names
             }
+            long endTime = System.currentTimeMillis();
+            System.out.println("process took: " + (endTime - startTime) +  "ms.");
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (modelIn != null) {
+                try {
+                    modelIn.close();
+                }
+                catch (IOException e) {
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testPOSAndLemmatization() throws FileNotFoundException {
+        long startTime = System.currentTimeMillis();
+        InputStream sentencemodelIn = new FileInputStream("src/test/resources/en-sent.bin");
+        InputStream tokenmodelIn = new FileInputStream("src/test/resources/en-token.bin");
+
+        InputStream modelIn = new FileInputStream("src/test/resources/en-pos-maxent.bin");
+
+        try {
+            POSModel posmodel = new POSModel(modelIn);
+
+            SentenceModel sentencemodel = new SentenceModel(sentencemodelIn);
+            SentenceDetectorME sentenceDetector = new SentenceDetectorME(sentencemodel);
+            String[] sentences = sentenceDetector.sentDetect(PHRASE_TEST);
+
+            TokenizerModel tokenmodel = new TokenizerModel(tokenmodelIn);
+            Tokenizer tokenizer = new TokenizerME(tokenmodel);
+
+            POSTaggerME tagger = new POSTaggerME(posmodel);
+
+            for (String s: sentences) {
+                String[] tokens = tokenizer.tokenize(s);
+                String[] posTags = tagger.tag(tokens);
+                int i = 0;
+                for (String t: posTags) {
+                    System.out.println(tokens[i++] + ": " +  "t = (" + t + ")" + PenTreeBankDef.getDescription(t));
+
+                }
+            }
+            long endTime = System.currentTimeMillis();
+            System.out.println("process took: " + (endTime - startTime) +  "ms.");
+
         }
         catch (IOException e) {
             e.printStackTrace();
