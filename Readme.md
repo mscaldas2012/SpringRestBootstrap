@@ -6,7 +6,7 @@ It includes several basic configurations
 * A WebMvcConfig to add versioning to your REST services.
 ** It uses a ApiVersion annotation that allows you to version the URLs.
 
-Versioning URLs is not the best approach is is a good approach if everything else fails.
+Versioning URLs is not the best approach but is a good and simple approach.
  For better versioning, use the Media versioning approach.
 
 * application.properties holds some basic information for your context, version prefix, port, etc.
