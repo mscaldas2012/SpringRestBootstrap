@@ -5,9 +5,3 @@ spring:
 server:
   apiContext: api
   versionContext: v
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka # Springboot Eureka Server
-      #defaultZone: http://localhost:9005/eureka/v2 # Docker 1.3.1 Eureka Server
-

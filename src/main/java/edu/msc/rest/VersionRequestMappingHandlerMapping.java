@@ -50,7 +50,12 @@ public class VersionRequestMappingHandlerMapping extends RequestMappingHandlerMa
     }
 
     private String getApiAndVersionContext() {
-        return "/" + apiContext + "/" + versionContext;
+        String result = "/";
+        if (apiContext != null && !apiContext.isEmpty()) {
+            result += apiContext + "/";
+        }
+        result += versionContext;
+        return result;
     }
 
     private int getPreviousVersion(final String version) {
@@ -84,7 +89,7 @@ public class VersionRequestMappingHandlerMapping extends RequestMappingHandlerMa
         String[] patterns = new String[values.length];
         for(int i=0; i<values.length; i++) {
             // Build the URL prefix
-            patterns[i] = versionContext+values[i];
+            patterns[i] = getApiAndVersionContext()+values[i];
         }
 
 
