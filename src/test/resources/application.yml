@@ -3,7 +3,7 @@ spring:
 summary: Test applications
 docs: http://localhost:8080/docs
 versions:
-  - vT
+  - vTgit
 contacts:
   -
     name: Marcelo
