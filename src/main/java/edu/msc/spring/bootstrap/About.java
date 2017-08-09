@@ -27,6 +27,7 @@ public class About implements Serializable {
     private List<ContactInfo> contacts;
     private List<String> versions ;
     private String docs;
+    private String currentRelease;
 
 
 
@@ -61,6 +62,7 @@ class AboutSerializer extends StdSerializer<About> {
         }
         jgen.writeEndArray();
         jgen.writeStringField("docs", about.getDocs());
+        jgen.writeStringField("currentRelease", about.getCurrentRelease());
         jgen.writeFieldName("contacts");
         jgen.writeStartArray();
         for (About.ContactInfo c: about.getContacts()) {

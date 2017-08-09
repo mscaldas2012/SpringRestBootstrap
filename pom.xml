@@ -5,7 +5,7 @@
 
 	<groupId>edu.msc</groupId>
 	<artifactId>spring.bootstrap</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1-${CI_BUILD_NUMBER}</version>
 	<packaging>jar</packaging>
 
 	<name>Spring Rest Bootstrap</name>
@@ -105,7 +105,18 @@
 					</resources>
 				</configuration>
 			</plugin>
-
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

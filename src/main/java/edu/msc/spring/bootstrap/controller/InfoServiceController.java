@@ -28,6 +28,11 @@ public class InfoServiceController {
         return about;
     }
 
+    @RequestMapping(value="/version", method = GET)
+    public String getVersion() {
+        return "Version: " + getClass().getPackage().getImplementationVersion();
+    }
+
     @RequestMapping("/ping")
     public String ping() {
         return "Hello There! I'm alive";

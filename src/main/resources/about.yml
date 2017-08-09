@@ -3,6 +3,8 @@ spring:
 summary: This is a stub for starting Spring REST services. It includes basic Boot configuration, Docker, and a About
   service that reads this YAML file. It also uses profiles
 docs: http://localhost:8080/docs
+
+
 versions:
  - v1
 contacts:
