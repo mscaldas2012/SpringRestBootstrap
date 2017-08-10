@@ -1,4 +1,4 @@
-<a href="https://travis-ci.org/mscaldas2012/SpringRestBootstrap.svg?branch=master"><img src="https://travis-ci.org/mscaldas2012/SpringRestBootstrap.svg?branch=master"/></a>
+<a href="https://travis-ci.org/mscaldas2012/SpringRestBootstrap"><img src="https://travis-ci.org/mscaldas2012/SpringRestBootstrap.svg?branch=master"/></a>
 
 
 This is a bootstrap project for SpringBoot REST type projects.
