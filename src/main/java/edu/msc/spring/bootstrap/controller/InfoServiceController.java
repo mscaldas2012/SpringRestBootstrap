@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 /**
@@ -35,7 +38,7 @@ public class InfoServiceController {
 
     @RequestMapping("/ping")
     public String ping() {
-        return "Hello There! I'm alive";
+        return "Hello There! I'm alive.\nYou pinged me at " + ZonedDateTime.now().format(DateTimeFormatter.ISO_INSTANT);
     }
 
 
