@@ -25,7 +25,7 @@ and choose **"Repo by URL"** under **Import from project**.
 You can provide the URL of this repository, passing username and password along with it:
 
 Ex.:
-<code>https://mcaldas:mypassword@gitlab.sandbox.aimsplatform.com/eip/springboot_template.git</code>
+<code>https://mcaldas:mypassword@gitlab.com/springboot_template.git</code>
 
 Give a new name for your repository and don't cheche the "Mirror repository" checkbox,
 since the two repos will diverge and don't need to be synced.
