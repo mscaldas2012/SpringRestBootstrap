@@ -1,24 +1,23 @@
 server:
-  servlet:
-    context-path: /serviceContext
+  context-path: /serviceContext
   port: 10000
   apiContext:
   versionContext: v
 
 spring:
   application:
-    name: <SERVICE>-Service
+    name: SERVICE-Service
 
   profiles:
-    active: ${SPRING_PROFILE}
-    
+    active: ${SPRING.PROFILE}
+
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:testdb
     platform: h2
     username: sa
     password:
-    
+
   jpa:
     properties:
       hibernate:
@@ -26,8 +25,8 @@ spring:
         format_sql: true
         ddl-auto: create-drop
         dialect: org.hibernate.dialect.H2Dialect
-        
-eip-service-config:
+
+configuration:
   pageInfo:
     maxPageSize: 100
     defaultPageSize: 20
@@ -35,7 +34,7 @@ eip-service-config:
 
 about:
   summary: This is a stub for starting Spring REST RENAME_ME. It includes basic Boot configuration, Docker, and a About service that reads this YAML file.
-  docs: http://localhost:${server.port}${server.servlet.context-path}/swagger-ui.html
+  docs: http://localhost:${server.port}/${server.context-path}/docs
 
   versions:
     - v1
@@ -50,18 +49,3 @@ spring:
   profiles: INT
 
 
-
----
-spring:
-  profiles: QA
-
-
-
----
-spring:
-  profiles: STG
-
-
----
-spring:
-  profiles: PROD

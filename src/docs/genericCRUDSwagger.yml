@@ -1,7 +1,7 @@
 
 swagger: "2.0"
 info:
-  title: "CRUD Generic services"
+  title: "CRUD Generic RENAME_ME"
   description: "This document describes the pattern to be followed for CRUD based APIs."
   version: "1.0.0"
   termsOfService: "http://swagger.io/terms/"

@@ -1,4 +1,4 @@
-package edu.msc.rest;
+package gov.cdc.nccdphp.esurveillance.rest;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

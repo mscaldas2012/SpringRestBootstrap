@@ -1,4 +1,4 @@
-package edu.msc.spring.bootstrap;
+package gov.cdc.nccdphp.esurveillance;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,6 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
+//@EnableEurekaClient
 public class SpringRESTBootstrap {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringRESTBootstrap.class, args);
@@ -18,7 +19,7 @@ public class SpringRESTBootstrap {
 		return new WebMvcConfigurerAdapter() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**");//.allowedOrigins("http://localhost:9000");
+				registry.addMapping("/**");
 			}
 		};
 	}

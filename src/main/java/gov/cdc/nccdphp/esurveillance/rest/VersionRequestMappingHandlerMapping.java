@@ -1,4 +1,4 @@
-package edu.msc.rest;
+package gov.cdc.nccdphp.esurveillance.rest;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -10,16 +10,17 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 /**
  * Created by caldama on 10/6/16.
  */
 public class VersionRequestMappingHandlerMapping extends RequestMappingHandlerMapping {
 
-    @Value("${server.apiContext}")
+    @Value("${server.apiContext:api}")
     private String apiContext;
 
-    @Value("${server.versionContext}")
+    @Value("${server.versionContext:v}")
     private String versionContext;
 
     @Override
@@ -66,18 +67,19 @@ public class VersionRequestMappingHandlerMapping extends RequestMappingHandlerMa
     @Override
     protected RequestMappingInfo getMappingForMethod(Method method, Class<?> handlerType) {
         RequestMappingInfo info = super.getMappingForMethod(method, handlerType);
-
-        ApiVersion methodAnnotation = AnnotationUtils.findAnnotation(method, ApiVersion.class);
-        if(methodAnnotation != null) {
-            RequestCondition<?> methodCondition = getCustomMethodCondition(method);
-            // Concatenate our ApiVersion with the usual request mapping
-            info = createApiVersionInfo(methodAnnotation, methodCondition).combine(info);
-        } else {
-            ApiVersion typeAnnotation = AnnotationUtils.findAnnotation(handlerType, ApiVersion.class);
-            if(typeAnnotation != null) {
-                RequestCondition<?> typeCondition = getCustomTypeCondition(handlerType);
+        if (Modifier.isPublic(method.getModifiers())&& !method.getName().startsWith("_")) {
+            ApiVersion methodAnnotation = AnnotationUtils.findAnnotation(method, ApiVersion.class);
+            if (methodAnnotation != null) {
+                RequestCondition<?> methodCondition = getCustomMethodCondition(method);
                 // Concatenate our ApiVersion with the usual request mapping
-                info = createApiVersionInfo(typeAnnotation, typeCondition).combine(info);
+                info = createApiVersionInfo(methodAnnotation, methodCondition).combine(info);
+            } else {
+                ApiVersion typeAnnotation = AnnotationUtils.findAnnotation(handlerType, ApiVersion.class);
+                if (typeAnnotation != null) {
+                    RequestCondition<?> typeCondition = getCustomTypeCondition(handlerType);
+                    // Concatenate our ApiVersion with the usual request mapping
+                    info = createApiVersionInfo(typeAnnotation, typeCondition).combine(info);
+                }
             }
         }
 
